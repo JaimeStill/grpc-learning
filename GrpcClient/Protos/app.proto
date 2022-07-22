@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcClient";
+
+package app;
+
+service App {
+    rpc Ping (PingRequest) returns (PingReply);
+
+    rpc ServerPingStream (PingRequestPayload) returns (stream PingReply);
+
+    rpc ClientPingStream (stream PingRequest) returns (PingReplyPayload);
+
+    rpc PingStream (stream PingRequest) returns (stream PingReply);
+}
+
+message PingRequest {
+    int32 id = 1;
+    string name = 2;
+}
+
+message PingReply {
+    string message = 1;
+}
+
+message PingRequestPayload {
+    repeated PingRequest requests = 1;
+}
+
+message PingReplyPayload {
+    repeated PingReply replies = 1;
+}
